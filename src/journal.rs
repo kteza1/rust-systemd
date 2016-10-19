@@ -178,6 +178,11 @@ impl Journal {
         Ok(Some(ret))
     }
 
+    pub fn wait(&mut self, time: u64) -> Result<()> {
+       sd_try!(ffi::sd_journal_wait(self.j, time));
+       Ok(())
+    }
+
     /// Seek to a specific position in journal. On success, returns a cursor
     /// to the current entry.
     pub fn seek(&mut self, seek: JournalSeek) -> Result<String> {
